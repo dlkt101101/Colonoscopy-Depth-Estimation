@@ -1,0 +1,19 @@
+# Model weights (too large for GitHub)
+models/
+*.pth
+*.pt
+*.bin
+
+# Data (too large and potentially sensitive)
+data/
+
+# Python cache
+__pycache__/
+*.pyc
+.env
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# MLflow runs
+mlruns/
