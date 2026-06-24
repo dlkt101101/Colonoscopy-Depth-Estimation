@@ -3,8 +3,7 @@ import itertools
 import pandas as pd
 import torch
 import torch.nn as nn
-import torch.optim as Adam
-from torch.nn.optim import lr_scheduler
+from torch.optim import Adam, lr_scheduler
 from src.utils import *
 
 
