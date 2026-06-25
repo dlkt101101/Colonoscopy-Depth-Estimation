@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 from PIL import Image
 from src.utils import scale_invariant_loss, DepthDataset
-from src.train import get_transform, get_best_run
+from src.train import get_transform, get_best_run, MODEL_TYPE
 
 # loading the fine-tuned model
 def load_best_model(weights_path: str, device: torch.device):
@@ -26,6 +26,7 @@ def run_inference(model, image: Image.Image, device: torch.device):
     """
     transform = get_transform(MODEL_TYPE)
     input_tensor = transform(np.array(image.convert("RGB"))).to(device)
+
     with torch.no_grad():
         depth_map = model(input_tensor)
 
@@ -37,6 +38,7 @@ def evaluate_on_test_set(model, test_dataset, best_batch_size, device: torch.dev
     """
     test_loss = 0.
     test_loader = DataLoader(test_dataset, batch_size=best_batch_size, shuffle=False)
+
     with torch.no_grad():
         for i, batch in enumerate(test_loader):
             color  = batch['color'].to(device)

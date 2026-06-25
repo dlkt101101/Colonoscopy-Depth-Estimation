@@ -1,6 +1,5 @@
 # import necessary libraries
-from copy import copy
-
+import copy
 import mlflow
 import itertools
 import pandas as pd
@@ -123,6 +122,7 @@ def run_training():
                     break
             
             # log best metrics
+            model.load_state_dict(best_model_state)
             mlflow.log_metric("best_validation_loss", best_val_loss)
             mlflow.log_metric("epochs_completed", epochs_completed)
             mlflow.pytorch.log_model(model, "model")
