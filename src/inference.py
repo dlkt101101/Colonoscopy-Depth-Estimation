@@ -1,21 +1,22 @@
 import torch
+import mlflow
 from torch.utils.data import DataLoader
 import numpy as np
 from PIL import Image
 from src.utils import scale_invariant_loss, DepthDataset
-from src.train import MODEL_TYPE, get_transform
+from src.train import get_transform, get_best_run
 
 # loading the fine-tuned model
-def load_model(weights_path: str, device: torch.device):
+def load_best_model(weights_path: str, device: torch.device):
     """
     Loads the fine-tuned model for inference from the saved weights.
     """
-    model = torch.hub.load("intel-isl/MiDaS", MODEL_TYPE)
-    # load pre-trained weights
-    model = model.load_state_dict(torch.load(weights_path, map_location=device, weights_only=True))
+    best_params = get_best_run()
+    model_uri = f"runs:/{best_params['run_id']}/model"
+    model = mlflow.pytorch.load_model(model_uri)
     model.to(device)
     model.eval()
-    return model
+    return model, best_params
 
 # make inference
 def run_inference(model, image: Image.Image, device: torch.device):
