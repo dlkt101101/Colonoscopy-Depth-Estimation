@@ -1,0 +1,10 @@
+mlflow
+fastapi
+numpy
+pandas
+matplotlib
+scikit-learn
+torch
+torchvision
+uvicorn
+pillow
