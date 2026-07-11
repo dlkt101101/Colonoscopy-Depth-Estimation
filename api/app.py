@@ -12,8 +12,8 @@ def health_check():
     return {"status": "healthy"}
 
 @app.post("/predict/depth")
-def predict_depth(file: UploadFile = File(...)):
-    image = file.read()
+async def predict_depth(file: UploadFile = File(...)):
+    image = await file.read()
     image = Image.open(io.BytesIO(image)).convert("RGB")
     depth_map = run_inference(image)
 

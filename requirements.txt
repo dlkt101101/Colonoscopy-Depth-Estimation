@@ -1,5 +1,5 @@
 mlflow
-fastapi
+fastapi[standard]
 numpy
 pandas
 matplotlib
